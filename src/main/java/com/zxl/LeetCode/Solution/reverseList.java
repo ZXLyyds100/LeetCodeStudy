@@ -4,7 +4,7 @@ import java.util.List;
 
 public class reverseList {
     public ListNode reverseList(ListNode head) {
-      /*  ListNode pre=null;
+        ListNode pre=null;
         ListNode cur=head;
         while(cur!=null){
             ListNode next=cur.next;
@@ -12,7 +12,8 @@ public class reverseList {
             pre=cur;
             cur=next;
         }
-        return pre;*/
+        return pre;
+
 
     }
 
