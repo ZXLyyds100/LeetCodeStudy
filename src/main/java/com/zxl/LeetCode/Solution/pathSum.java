@@ -34,7 +34,7 @@ public class pathSum {
             return 0;
         }
         int ret = 0;
-        curr += root.val;
+        curr += root.val;// curr + A = targetSum，看集合里面有没有
         ret = prefix.getOrDefault(curr - targetSum, 0);
         prefix.put(curr, prefix.getOrDefault(curr, 0) + 1);
         ret += dfs(root.left, prefix, curr, targetSum);
