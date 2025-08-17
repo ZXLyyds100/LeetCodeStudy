@@ -15,4 +15,18 @@ public class jump {
         }
         return steps;
     }
+    public int jump_2(int[] nums){
+            int maxPosition = 0;
+            int end = 0;
+            int length = nums.length;
+            int steps = 0;
+            for(int i = 0; i < length - 1; i++){
+                maxPosition = Math.max(maxPosition, i + nums[i]);
+                if(i == end){
+                    end = maxPosition;
+                    steps++;
+                }
+            }
+            return steps;
+    }
 }
