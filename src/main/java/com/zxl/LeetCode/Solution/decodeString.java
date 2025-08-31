@@ -12,27 +12,29 @@ public class decodeString {
         if(ptr == src.length() || src.charAt(ptr) == ']'){
             return "";
         }
-        char cur = src.charAt(ptr);
-        String ret = "";
         int repeat = 1;
+        String ret = "";
+        char cur = src.charAt(ptr);
         if(Character.isDigit(cur)){
             repeat = getInt();
             ++ptr;
             String str = getString();
             ++ptr;
-            while(repeat > 0){
+            while (repeat > 0){
                 ret += str;
-                repeat--;
+                repeat --;
             }
         }else if(Character.isLetter(cur)){
-            ret = String.valueOf(src.charAt(ptr++));
+            ret += String.valueOf(cur);
+            ptr++;
         }
         return ret + getString();
     }
     public int getInt(){
         int ret = 0;
         while(ptr < src.length() && Character.isDigit(src.charAt(ptr))){
-            ret = ret * 10 + src.charAt(ptr++) - '0';
+            ret = ret * 10 + src.charAt(ptr) - '0';
+            ptr ++;
         }
         return ret;
     }
