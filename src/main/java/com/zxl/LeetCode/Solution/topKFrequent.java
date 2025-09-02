@@ -9,7 +9,7 @@ public class topKFrequent {
     public int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> count = new HashMap<>();
         for (int num : nums) {
-            count.put(num, count.getOrDefault(count, 0) + 1);
+            count.put(num, count.getOrDefault(num, 0) + 1);
         }
         PriorityQueue<int[]> queue = new PriorityQueue<>(new Comparator<int[]>() {
             @Override
