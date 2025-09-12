@@ -5,18 +5,18 @@ import java.util.LinkedList;
 
 public class kthSmallest {
     public int kthSmallest(TreeNode root, int k) {
-        Deque<TreeNode>stack=new LinkedList<>();
-        while(root!=null||!stack.isEmpty()){
-            while(root!=null){
+        Deque<TreeNode> stack = new LinkedList<>();
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
                 stack.push(root);
-                root=root.left;
+                root = root.left;
             }
             k--;
-            root=stack.pop();
-            if(k==0){
+            root = stack.pop();
+            if (k == 0) {
                 break;
             }
-            root=root.right;
+            root = root.right;
         }
         return root.val;
     }
