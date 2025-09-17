@@ -5,7 +5,7 @@ public class sortColors2 {
         int n = nums.length;
         int p0 = 0;
         int p1 = 0;
-        for (int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             if (nums[i] == 1) {
                 swap(i, p1, nums);
                 p1++;
@@ -19,7 +19,8 @@ public class sortColors2 {
             }
         }
     }
-    public void swap (int i, int j, int nums[]) {
+
+    public void swap(int i, int j, int nums[]) {
         int t = nums[i];
         nums[i] = nums[j];
         nums[j] = t;
