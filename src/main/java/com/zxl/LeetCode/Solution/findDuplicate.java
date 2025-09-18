@@ -2,7 +2,7 @@ package com.zxl.LeetCode.Solution;
 
 public class findDuplicate {
     public int findDuplicate(int[] nums) {
-        int n = nums.length;
+   /*     int n = nums.length;
         int l = 0, r = n - 1;
         int ans = -1;
         while (l <= r) {
@@ -20,6 +20,18 @@ public class findDuplicate {
                 ans = mid;
             }
         }
-        return ans;
+        return ans;*/
+        int slow = 0;
+        int fast = 0;
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (fast != slow);
+        slow = 0;
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        return slow;
     }
 }
