@@ -6,26 +6,32 @@ import java.util.List;
 public class generateParenthesis {
     public List<String> generateParenthesis(int n) {
         List<String> ans = new ArrayList<>();
-        dfs(new char[2 * n], 0, ans, n);
+        dfs(0, 0, ans, n, new StringBuilder());
         return ans;
     }
-    public void dfs(char[] current, int pos, List<String> ans, int n) {
-        if (pos == 2 * n) {
+    public void dfs(int open, int close, List<String> ans, int n, StringBuilder current) {
+        if (current.length() == 2 * n) {
             if (isValid(current)) {
                 ans.add(new String(current));
             }
 
         } else {
-            current[pos] = '(';
-            dfs(current, pos + 1, ans, n);
-            current[pos] = ')';
-            dfs(current, pos + 1, ans, n);
+            if (open < n) {
+                current.append('(');
+                dfs(open + 1, close, ans, n, current);
+                current.deleteCharAt(current.length() - 1);
+            }
+            if (close < n) {
+                current.append(')');
+                dfs(open, close + 1, ans, n, current);
+                current.deleteCharAt(current.length() - 1);
+            }
         }
     }
-    public boolean isValid(char[] current) {
+    public boolean isValid(StringBuilder current) {
         int balance = 0;
-        for (char c : current) {
-            if (c == '(') {
+        for (int i = 0; i < current.length(); i++) {
+            if (current.charAt(i) == '(') {
                 balance++;
             } else {
                 balance--;
