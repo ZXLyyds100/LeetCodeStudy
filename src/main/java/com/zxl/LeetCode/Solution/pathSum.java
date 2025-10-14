@@ -7,7 +7,7 @@ public class pathSum {
     /*public int pathSum(TreeNode root, int targetSum) {
         if(root == null)return 0;
         int ret = rootSum(root, targetSum);
-        ret += pathSum(root.left, targetSum);
+        ret += pathSum(root.left, targetSum);z
         ret += pathSum(root.right, targetSum);
         return ret;
     }
