@@ -31,21 +31,21 @@ import java.util.Set;
 s 由英文字母、数字、符号和空格组成*/
 public class lenghtOfLongestSubstring {
     public int lengthOfLongestSubstring(String s) {
-        char[] chars = s.toCharArray();
-        Set<Character>set=new HashSet<>();
-        int ans=0;
-        int n=s.length();
-        int st=0;
-        int end=0;
-        for(int i=0;i<n;i++){
-            if(i!=0){
-                set.remove(chars[i-1]);
+        Set<Character> set = new HashSet<>();
+        char[] chs = s.toCharArray();
+        int end = 0;
+        int n = s.length();
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            if (i != 0) {
+                set.remove(chs[i - 1]);
             }
-            while(end<n&&!set.contains(chars[end])){
-                set.add(chars[end]);
+            while (end < n && !set.contains(chs[end])) {
+
+                set.add(chs[end]);
                 end++;
             }
-            ans=Math.max(ans,end-i);
+            ans = Math.max(ans, end - i);
         }
         return ans;
     }
