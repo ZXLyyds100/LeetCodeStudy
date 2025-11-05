@@ -32,24 +32,24 @@ import java.util.List;
 s 和 p 仅包含小写字母*/
 public class findAnagrams {
     public List<Integer> findAnagrams(String s, String p) {
-        int sLen=s.length();
-        int pLen=p.length();
-        if(sLen<pLen)return new ArrayList<Integer>();
-        int sCnt[]=new int[26];
-        int pCnt[]=new int[26];
-        for(int i=0;i<pLen;i++){
-            sCnt[s.charAt(i)-'a']++;
-            pCnt[p.charAt(i)-'a']++;
+        int pLen = p.length();
+        int sLen = s.length();
+        if (sLen < pLen)return new ArrayList<>();
+        int[] pCnt = new int[26];
+        int[] sCnt = new int[26];
+        for (int i = 0; i < pLen; i++) {
+            sCnt[s.charAt(i) - 'a']++;
+            pCnt[p.charAt(i) - 'a']++;
         }
-        List<Integer>ans=new ArrayList<>();
-        if(Arrays.equals(sCnt,pCnt)){
+        List<Integer> ans = new ArrayList<>();
+        if (Arrays.equals(pCnt, sCnt)) {
             ans.add(0);
         }
-        for(int i=0;i<sLen-pLen;i++){
-            sCnt[s.charAt(i+1)-'a']--;
-            sCnt[s.charAt(i+pLen+1)-'a']++;
-            if(Arrays.equals(sCnt,pCnt)){
-                ans.add(i+1);
+        for (int i = 0; i < sLen - pLen; i++) {
+            sCnt[s.charAt(i) - 'a']--;
+            sCnt[s.charAt(i + pLen) - 'a']++;
+            if (Arrays.equals(pCnt, sCnt)) {
+                ans.add(i + 1);
             }
         }
         return ans;

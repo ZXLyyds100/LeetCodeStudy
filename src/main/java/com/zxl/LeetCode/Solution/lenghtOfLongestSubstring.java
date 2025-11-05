@@ -32,16 +32,15 @@ s 由英文字母、数字、符号和空格组成*/
 public class lenghtOfLongestSubstring {
     public int lengthOfLongestSubstring(String s) {
         Set<Character> set = new HashSet<>();
+        int ans = 0;
+        int n = s.length();
         char[] chs = s.toCharArray();
         int end = 0;
-        int n = s.length();
-        int ans = 0;
         for (int i = 0; i < n; i++) {
             if (i != 0) {
                 set.remove(chs[i - 1]);
             }
             while (end < n && !set.contains(chs[end])) {
-
                 set.add(chs[end]);
                 end++;
             }
