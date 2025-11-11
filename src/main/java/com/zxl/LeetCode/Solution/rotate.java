@@ -10,24 +10,23 @@ public class rotate {
         System.arraycopy(newArr,0,nums,0,n);
     }*/
    public void rotate(int[] nums, int k) {
-       int n=nums.length;
-       k=k%n;
-       // 就是隔位的值的轮换，这样就不会使得值被意外覆盖
-       // gcd用欧几里得
-       int count=gcd(n,k);
-       for(int i=0;i<count;i++){
-           int cur=i;
-           int preValue=nums[i];
-           do{
-               int next=(cur+k)%n;
-               int temp=nums[next];
-               nums[next]=preValue;
-               preValue=temp;
-               cur=next;
-           }while(cur!=i);
+       if (k == 0) return;
+       int n = nums.length;
+       k %= n;
+       int count = gcd(n, k);
+       for (int i = 0; i < count; i++) {
+           int cur = i;
+           int preValue = nums[i];
+           do {
+               int next = (cur + k) % n;
+               int temp = nums[next];
+               nums[next] = preValue;
+               preValue = temp;
+               cur = next;
+           } while (i != cur);
        }
    }
-   public int gcd(int x,int y){
-       return y>0?gcd(y,x%y):x;
+   public int gcd(int x, int y) {
+       return y > 0 ? gcd(y, x % y) : x;
    }
 }
