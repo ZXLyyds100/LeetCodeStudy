@@ -37,4 +37,7 @@ public class reverseKGroup {
         return new ListNode[]{tail,head};
     }
 
+    public static void main(String[] args) {
+
+    }
 }
