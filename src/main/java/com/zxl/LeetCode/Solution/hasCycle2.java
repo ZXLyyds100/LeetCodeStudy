@@ -5,32 +5,19 @@ import java.util.Set;
 
 public class hasCycle2 {
     public ListNode detectCycle(ListNode head) {
-      /*  Set<ListNode>s=new HashSet<>();
-        ListNode pos=head;
-        while(pos!=null){
-            if(s.contains(pos)){
-                return pos;
-            }else {
-                s.add(pos);
-            }
-            pos=pos.next;
+        if (head == null || head.next == null) {
+            return null;
         }
-        return null;*/
-        if(head==null)return null;
-        ListNode slow=head;
-        ListNode fast=head;
-        while(fast!=null){
-            slow=slow.next;
-            if(fast.next!=null){
-                fast=fast.next.next;
-            }else{
-                return null;
-            }
-            if(fast==slow){
-                ListNode ptr=fast;
-                while(ptr!=slow){
-                    slow=slow.next;
-                    ptr=ptr.next;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                ListNode ptr = head;
+                while (ptr != slow) {
+                    ptr = ptr.next;
+                    slow = slow.next;
                 }
                 return ptr;
             }
