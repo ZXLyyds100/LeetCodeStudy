@@ -2,24 +2,22 @@ package com.zxl.LeetCode.Solution;
 
 public class removeNthFromEnd {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        int length=getLength(head);
-        if(length==n){
-            return head.next;
+        int length = getLength(head);
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = dummy;
+        for (int i = 1; i < length - n + 1; i++) {
+            cur = cur.next;
         }
-        ListNode cur=head;
-        for(int i=1;i<length-n;i++){
-            cur=cur.next;
-        }
-        cur.next=cur.next.next;
-        return head;
+        cur.next = cur.next.next;
+        return dummy.next;
     }
     public int getLength(ListNode head){
-        int l=0;
-        ListNode cur=head;
-        while(cur!=null){
-            l++;
-            cur=cur.next;
+        ListNode cur = head;
+        int cnt = 0;
+        while (cur != null) {
+            cur = cur.next;
+            cnt++;
         }
-        return l;
+        return cnt;
     }
 }
