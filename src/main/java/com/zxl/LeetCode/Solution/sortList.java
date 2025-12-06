@@ -51,41 +51,43 @@ public class sortList {
             return dummy.next;
         }*/
     public ListNode sortList(ListNode head) {
-        if(head==null){
-            return head;
-        }
-        int length=0;
-        ListNode node=head;
-        while(node!=null){
+        if (head == null) return null;
+        int length = 0;
+        ListNode dummy = new ListNode(0, head);
+        ListNode node = head;
+        while (node != null) {
             length++;
-            node=node.next;
+            node = node.next;
         }
-        ListNode dummy=new ListNode(0,head);
-        for(int subLength=1;subLength<length;subLength<<=1){
-            ListNode prev=dummy;
-            ListNode cur=dummy.next;
-            while(cur!=null){
-                ListNode head1=cur;
-                for(int i=1;i<subLength&&cur.next!=null;i++){
-                    cur=cur.next;
+        // 从1开始
+        for (int subLength = 1; subLength < length; subLength <<= 1) {
+            ListNode prev = dummy;
+            ListNode cur = dummy.next;
+            while (cur != null) {
+                ListNode head1 = cur;
+                for (int i = 1; i < subLength && cur.next != null; i++) {
+                    cur = cur.next;
                 }
-                ListNode head2=cur.next;
-                cur.next=null;
-                cur=head2;
-                for(int i=1;i<subLength&&cur!=null&&cur.next!=null;i++){
-                    cur=cur.next;
+                ListNode head2 = cur.next;
+                cur.next = null;
+                cur = head2;
+                // head2可能为null
+                for (int i = 1; i < subLength && cur!= null && cur.next != null; i++) {
+                    cur = cur.next;
                 }
-                ListNode next=null;
-                if(cur!=null){
-                    next=cur.next;
-                    cur.next=null;
+                ListNode next = null;
+                if (cur != null) {
+                    next = cur.next;
+                    cur.next = null;
                 }
-                ListNode merged=merge(head1,head2);
-                prev.next=merged;
-                while(prev.next!=null){
-                    prev=prev.next;
+
+                ListNode merged = merge(head1, head2);
+                prev.next = merged;
+                while (prev.next != null) {
+                    prev = prev.next;
                 }
-                cur=next;
+
+                cur = next;
             }
         }
         return dummy.next;
