@@ -2,7 +2,7 @@ package com.zxl.LeetCode.Solution;
 
 public class mergeKLists {
     public ListNode mergeKLists(ListNode[] lists) {
-        return mergeLists(lists, 0 , lists.length - 1);
+        return mergeLists(lists, 0, lists.length - 1);
     }
     public ListNode mergeLists(ListNode[] lists, int l, int r) {
         if (l == r) {
@@ -11,16 +11,17 @@ public class mergeKLists {
         if (l > r) {
             return null;
         }
-        int mid = (l + r) >> 1;
+        int mid = l + r >> 1;
         return mergerTwoList(mergeLists(lists, l, mid), mergeLists(lists, mid + 1, r));
     }
     public ListNode mergerTwoList(ListNode a, ListNode b) {
         if (a == null || b == null) {
-            return a == null ? b : a;
+            return a != null ? a : b;
         }
-        ListNode aPtr = a, bPtr = b;
-        ListNode head = new ListNode(0);
-        ListNode tail = head;
+        ListNode aPtr = a;
+        ListNode bPtr = b;
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
         while (aPtr != null && bPtr != null) {
             if (aPtr.val < bPtr.val) {
                 tail.next = aPtr;
@@ -31,7 +32,12 @@ public class mergeKLists {
             }
             tail = tail.next;
         }
-        tail.next = aPtr == null ? bPtr : aPtr;
-        return head.next;
+        if (aPtr != null) {
+            tail.next = aPtr;
+        }
+        if (bPtr != null) {
+            tail.next = bPtr;
+        }
+        return dummy.next;
     }
 }
