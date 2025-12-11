@@ -14,7 +14,7 @@ public class maxDepth {
         int L=maxDepth(root.left);
         int R=maxDepth(root.right);
         return Math.max(L,R)+1;*/
-        if(root==null){
+        /*if(root==null){
             return 0;
         }
         Queue<TreeNode>q=new LinkedList<>();
@@ -34,6 +34,12 @@ public class maxDepth {
             }
             ans++;
         }
-        return ans;
+        return ans;*/
+        if (root == null) {
+            return 0;
+        }
+        int L = maxDepth(root.left);
+        int R = maxDepth(root.right);
+        return Math.max(L, R) + 1;
     }
 }
