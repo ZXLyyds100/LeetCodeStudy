@@ -4,32 +4,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LRUCache {
-    class DLinkedNode {
-        int key;
+    class DLinkedList {
+        DLinkedList prev;
+        DLinkedList next;
         int value;
-        DLinkedNode prev;
-        DLinkedNode next;
-        public DLinkedNode() {}
-        public DLinkedNode(int key, int value) {
+        int key;
+
+        public DLinkedList() {};
+        public DLinkedList(int value, int key) {
             this.key = key;
             this.value = value;
         }
     }
-    private Map<Integer, DLinkedNode> cache = new HashMap<>();
-    private int size;
+    private DLinkedList head;
+    private DLinkedList tail;
     private int capacity;
-    private DLinkedNode head, tail;
+    int size;
+    private HashMap<Integer, DLinkedList> cache = new HashMap<>();
     public LRUCache(int capacity) {
         this.capacity = capacity;
         this.size = 0;
-        this.head = new DLinkedNode();
-        this.tail = new DLinkedNode();
+        head = new DLinkedList();
+        tail = new DLinkedList();
         head.next = tail;
         tail.prev = head;
     }
 
     public int get(int key) {
-        DLinkedNode node = cache.get(key);
+        DLinkedList node = cache.get(key);
         if (node == null) {
             return -1;
         }
@@ -38,40 +40,41 @@ public class LRUCache {
     }
 
     public void put(int key, int value) {
-        DLinkedNode node = cache.get(key);
+        DLinkedList node = cache.get(key);
         if (node == null) {
-            node = new DLinkedNode(key, value);
-            cache.put(key, node);
-            addToHead(node);
+            DLinkedList newNode = new DLinkedList(value, key);
             ++size;
+            cache.put(key, newNode);
+            addToHead(newNode);
             if (size > capacity) {
-                DLinkedNode dLinkedNode = removeTail();
+                DLinkedList dLinkedList = removeTail();
+                cache.remove(dLinkedList.key);
                 size--;
-                cache.remove(dLinkedNode.key);
             }
+
         } else {
             node.value = value;
             moveToHead(node);
         }
     }
-    private void addToHead(DLinkedNode node) {
+    private void addToHead(DLinkedList node) {
         node.next = head.next;
         node.prev = head;
         head.next.prev = node;
         head.next = node;
     }
-    private void removeNode(DLinkedNode node) {
+    private void removeNode(DLinkedList node) {
         node.prev.next = node.next;
         node.next.prev = node.prev;
     }
-    private void moveToHead(DLinkedNode node) {
+    private void moveToHead(DLinkedList node) {
         removeNode(node);
         addToHead(node);
     }
-    private DLinkedNode removeTail() {
-        DLinkedNode res = tail.prev;
-        removeNode(res);
-        return res;
+    private DLinkedList removeTail() {
+        DLinkedList prev = tail.prev;
+        removeNode(prev);
+        return prev;
     }
 }
 
