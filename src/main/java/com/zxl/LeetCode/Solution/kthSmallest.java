@@ -19,5 +19,6 @@ public class kthSmallest {
             root = root.right;
         }
         return root.val;
+
     }
 }
