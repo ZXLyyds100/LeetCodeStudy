@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class buildTree {
-    Map<Integer,Integer>mp;
+    /*Map<Integer,Integer>mp;
     public TreeNode myBuildTree(int[] preOrder, int[] inOrder,
                                 int preBegin, int preEnd,
                                 int orderBegin, int OrderEnd){
@@ -25,5 +25,58 @@ public class buildTree {
             mp.put(inorder[i], i);
         }
         return myBuildTree(preorder, inorder, 0, preorder.length-1,0, inorder.length-1);
+    }*/
+
+
+
+
+
+
+
+
+
+
+    Map<Integer, Integer> inorderIndex;
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        inorderIndex = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            inorderIndex.put(inorder[i], i);
+        }
+        return build(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
     }
+    public TreeNode build(int[] preOrder, int preBegin, int preEnd,
+                          int[] inOrder, int inBegin, int inEnd) {
+        if (preBegin > preEnd) {
+            return null;
+        }
+        int val = preOrder[preBegin];
+        Integer index = inorderIndex.get(val);
+        int leftSize = index - inBegin;
+        TreeNode root = new TreeNode(val);
+        root.left = build(preOrder, preBegin + 1, preBegin + leftSize, inOrder, inBegin, index - 1);
+        root.right = build(preOrder, preBegin + leftSize + 1, preEnd, inOrder, index + 1, inEnd);
+        return root;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
