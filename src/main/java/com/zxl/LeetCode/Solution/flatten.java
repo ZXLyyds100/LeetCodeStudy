@@ -69,20 +69,22 @@ public class flatten {
        }
     }*/
     public void flatten(TreeNode root) {
-        if(root==null)return;
-        TreeNode cur=root;
-        while(cur!=null){
-            if(cur.left!=null){
-                TreeNode next=cur.left;
-                TreeNode p=next;
-                while(p.right!=null){
-                    p=p.right;
+        if (root == null) {
+            return;
+        }
+        TreeNode cur = root;
+        while (cur != null) {
+            if (cur.left != null) {
+                TreeNode p = cur.left;
+                TreeNode next = p;
+                while (p.right != null) {
+                    p = p.right;
                 }
-                p.right=cur.right;
-                cur.left=null;
-                cur.right=next;
+                p.right = cur.right;
+                cur.left = null;
+                cur.right = next;
             }
-            cur=cur.right;
+            cur = cur.right;
         }
     }
 }
