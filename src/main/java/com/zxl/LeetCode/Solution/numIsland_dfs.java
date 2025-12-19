@@ -1,10 +1,27 @@
 package com.zxl.LeetCode.Solution;
 
 public class numIsland_dfs {
-    public void dfs(char[][] grid, int r, int c){
-        int nr = grid.length;
-        int nc = grid[0].length;
-        if(r < 0 || c < 0 || r >= nr || c >= nc || grid[r][c] == '0'){
+    int nr;
+    int nc;
+    public int numIslands(char[][] grid) {
+        if (grid == null) {
+            return 0;
+        }
+        nr = grid.length;
+        nc = grid[0].length;
+        int cnt = 0;
+        for (int i = 0; i < nr; i++) {
+            for (int j = 0; j < nc; j++) {
+                if (grid[i][j] == '1') {
+                    cnt++;
+                    dfs(grid, i, j);
+                }
+            }
+        }
+        return cnt;
+    }
+    public void dfs(char[][] grid, int r, int c) {
+        if (r < 0 || c < 0 || r >= nr || c >= nc || grid[r][c] == '0') {
             return;
         }
         grid[r][c] = '0';
@@ -12,22 +29,5 @@ public class numIsland_dfs {
         dfs(grid, r - 1, c);
         dfs(grid, r, c + 1);
         dfs(grid, r, c - 1);
-    }
-    public int numIslands(char[][] grid) {
-        if(grid == null || grid.length == 0){
-            return 0;
-        }
-        int r = grid.length;
-        int c = grid[0].length;
-        int cnt = 0;
-        for(int i = 0; i < r; i++){
-            for(int j =0; j < c; j++){
-                if(grid[i][j] == '1'){
-                    cnt++;
-                    dfs(grid, i, j);
-                }
-            }
-        }
-        return cnt;
     }
 }
