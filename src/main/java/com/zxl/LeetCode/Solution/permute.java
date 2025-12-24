@@ -6,23 +6,21 @@ import java.util.List;
 
 public class permute {
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
+        List<List<Integer>> ans = new ArrayList<>();
         List<Integer> output = new ArrayList<>();
-        for(int num : nums){
+        for (int num : nums) {
             output.add(num);
         }
-        int n = nums.length;
-        backtrack(n, output, res, 0);
-        return res;
+        backtrace(nums.length, output, ans, 0);
+        return ans;
     }
-    public void backtrack(int n, List<Integer>output, List<List<Integer>>res, int first){
-        if(first == n){
-            res.add(new ArrayList<>(output));
-            return;
+    private void backtrace(int n, List<Integer> output, List<List<Integer>> ans, int first) {
+        if (first == n) {
+            ans.add(new ArrayList<>(output));
         }
-        for(int i = first ;i < n ; i++){
+        for (int i = first; i < n; i++) {
             Collections.swap(output, first, i);
-            backtrack(n, output, res, first+1);
+            backtrace(n, output, ans, first + 1);
             Collections.swap(output, first, i);
         }
     }
