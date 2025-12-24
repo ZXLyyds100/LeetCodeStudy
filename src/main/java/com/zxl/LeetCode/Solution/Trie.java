@@ -4,43 +4,38 @@ public class Trie {
     private Trie[] children;
     private boolean isEnd;
     public Trie() {
-        children = new Trie[26];
-        isEnd = false;
+        this.children = new Trie[26];
+        this.isEnd = false;
     }
 
     public void insert(String word) {
         Trie node = this;
         for (int i = 0; i < word.length(); i++) {
             char ch = word.charAt(i);
-            int idx = ch - 'a';
-            if (node.children[idx] == null) {
-                node.children[idx] = new Trie();
+            if (node.children[ch - 'a'] == null) {
+                node.children[ch - 'a'] = new Trie();
             }
-            node = node.children[idx];
+            node = node.children[ch - 'a'];
         }
         node.isEnd = true;
     }
 
     public boolean search(String word) {
-        Trie node = searchPrefix(word);
+        Trie node = searchWithPrefix(word);
         return node != null && node.isEnd;
     }
 
     public boolean startsWith(String prefix) {
-        return searchPrefix(prefix) != null;
+        return searchWithPrefix(prefix) != null;
     }
-    public Trie searchPrefix(String prefix) {
-        if (prefix == null) {
-            return null;
-        }
+    public Trie searchWithPrefix(String prefix) {
         Trie node = this;
         for (int i = 0; i < prefix.length(); i++) {
             char ch = prefix.charAt(i);
-            int idx = ch - 'a';
-            if (node.children[idx] == null) {
+            if (node.children[ch - 'a'] == null) {
                 return null;
             }
-            node = node.children[idx];
+            node = node.children[ch - 'a'];
         }
         return node;
     }
