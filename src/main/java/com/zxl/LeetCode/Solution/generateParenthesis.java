@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class generateParenthesis {
-    public List<String> generateParenthesis(int n) {
+    /*public List<String> generateParenthesis(int n) {
         List<String> ans = new ArrayList<>();
         dfs(0, 0, ans, n, new StringBuilder());
         return ans;
@@ -41,5 +41,26 @@ public class generateParenthesis {
             }
         }
         return balance == 0;
+    }*/
+    public List<String> generateParenthesis(int n) {
+        List<String> ans = new ArrayList<>();
+        dfs(0, 0, new StringBuilder(), ans, n);
+        return ans;
+    }
+    public void dfs(int open, int close, StringBuilder item, List<String> ans, int n) {
+        if (item.length() == n * 2) {
+            ans.add(new String(item));
+            return;
+        }
+        if (open < n) {
+            item.append('(');
+            dfs(open + 1, close, item, ans, n);
+            item.deleteCharAt(item.length() - 1);
+        }
+        if (close < open) {
+            item.append(')');
+            dfs(open, close + 1, item, ans, n);
+            item.deleteCharAt(item.length() - 1);
+        }
     }
 }
