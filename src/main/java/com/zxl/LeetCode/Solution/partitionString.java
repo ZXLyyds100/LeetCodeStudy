@@ -5,22 +5,21 @@ import java.util.Arrays;
 import java.util.List;
 
 public class partitionString {
-    boolean[][] dp;
     List<List<String>> ret;
     List<String> ans;
     int n;
-
+    boolean[][] dp;
     public List<List<String>> partition(String s) {
         n = s.length();
         dp = new boolean[n][n];
-        ans = new ArrayList<>();
         ret = new ArrayList<>();
+        ans = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             Arrays.fill(dp[i], true);
         }
         for (int i = n - 1; i >= 0; i--) {
             for (int j = i + 1; j < n; j++) {
-                dp[i][j] = (s.charAt(i) == s.charAt(j) && dp[i + 1][j - 1]);
+                    dp[i][j] = s.charAt(i) == s.charAt(j) && dp[i + 1][j - 1];
             }
         }
         dfs(s, 0);
@@ -28,7 +27,7 @@ public class partitionString {
     }
     public void dfs(String s, int depth) {
         if (depth == n) {
-            ret.add(new ArrayList<String>(ans));
+            ret.add(new ArrayList<>(ans));
             return;
         }
         for (int i = depth; i < n; i++) {
@@ -38,8 +37,6 @@ public class partitionString {
                 ans.remove(ans.size() - 1);
             }
         }
-
     }
-
 
 }
