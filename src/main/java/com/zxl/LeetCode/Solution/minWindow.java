@@ -5,46 +5,43 @@ public class minWindow {
     public String minWindow(String s, String t) {
         int sLen = s.length();
         int tLen = t.length();
-        if (sLen < tLen) {
-            return "";
-        }
-        char[] sArray = s.toCharArray();
-        char[] tArray = t.toCharArray();
-        int[] winCnt = new int[128];
+        char[] sArr = s.toCharArray();
+        char[] tArr = t.toCharArray();
         int[] tCnt = new int[128];
-        for (char c : tArray) {
+        int[] winCnt = new int[128];
+        for (char c : tArr) {
             tCnt[c]++;
         }
-        int distance = 0;
         int left = 0, right = 0;
-        int minLen = sLen + 1;
+        int cnt = 0;
         int begin = 0;
+        int minLen = sLen + 1;
         for (int i = 0; i < sLen; i++) {
-            char c = sArray[i];
+            char c = sArr[i];
             if (tCnt[c] == 0) {
                 right++;
                 continue;
             }
             if (winCnt[c] < tCnt[c]) {
-                distance++;
+                cnt++;
             }
             winCnt[c]++;
             right++;
-            while (distance == tLen) {
+            while (cnt == tLen) {
                 if (right - left < minLen) {
-                    minLen = right - left;
                     begin = left;
+                    minLen = right - left;
                 }
-                char leftChar = sArray[left];
+                char leftChar = sArr[left];
                 if (tCnt[leftChar] == 0) {
                     left++;
                     continue;
                 }
                 if (tCnt[leftChar] == winCnt[leftChar]) {
-                    distance--;
+                    cnt--;
                 }
-                left++;
                 winCnt[leftChar]--;
+                left++;
             }
         }
         if (minLen == sLen + 1) {
