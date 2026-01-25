@@ -7,27 +7,26 @@ import java.util.Map;
 
 public class isValidBrackets {
     public boolean isValid(String s) {
-        if(s.length() % 2 == 1){
+        if (s.length() % 2 == 1) {
             return false;
         }
-        int n = s.length();
-        Map<Character, Character> mp = new HashMap<>();
+        HashMap<Character, Character> mp = new HashMap<>();
         mp.put(')', '(');
         mp.put('}', '{');
         mp.put(']', '[');
         Deque<Character> stack = new LinkedList<>();
-        for(int i = 0; i < n; i++){
-            char ch = s.charAt(i);
-            if(mp.containsKey(ch)){
-                if(stack.isEmpty() || stack.peek() != mp.get(ch)){
+        for (int i = 0; i < s.length(); i++) {
+            Character ch = s.charAt(i);
+            if (mp.containsKey(ch)) {
+                if (stack.isEmpty() || stack.peek() != mp.get(ch)) {
                     return false;
-                }else{
+                } else {
                     stack.pop();
                 }
-            }else{
+            } else {
                 stack.push(ch);
             }
         }
-            return stack.isEmpty();
+        return stack.isEmpty();
     }
 }
