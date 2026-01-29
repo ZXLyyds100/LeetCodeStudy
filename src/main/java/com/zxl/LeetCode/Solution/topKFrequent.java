@@ -1,38 +1,37 @@
 package com.zxl.LeetCode.Solution;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class topKFrequent {
     public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> count = new HashMap<>();
-        for (int num : nums) {
-            count.put(num, count.getOrDefault(num, 0) + 1);
-        }
-        PriorityQueue<int[]> queue = new PriorityQueue<>(new Comparator<int[]>() {
+        Map<Integer, Integer> mp = new HashMap<>();
+        PriorityQueue<int[]> priorityQueue = new PriorityQueue<>(new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
                 return o1[1] - o2[1];
             }
         });
-        for (Map.Entry<Integer, Integer> cnt : count.entrySet()) {
-            int num = cnt.getKey();
-            int cnt1 = cnt.getValue();
-            if (queue.size() == k) {
-                if (queue.peek()[1] < cnt1) {
-                    queue.poll();
-                    queue.offer(new int[]{num, cnt1});
+        for (int num : nums) {
+            mp.put(num, mp.getOrDefault(num, 0) + 1);
+        }
+        int n = nums.length;
+        for (Map.Entry<Integer, Integer> cnt : mp.entrySet()) {
+            int value = cnt.getKey();
+            int count = cnt.getValue();
+            if (priorityQueue.size() == k) {
+                int[] top = priorityQueue.peek();
+                if (top[1] < count) {
+                    priorityQueue.poll();
+                    priorityQueue.offer(new int[]{value, count});
                 }
             } else {
-                queue.offer(new int[]{num, cnt1});
+                priorityQueue.offer(new int[]{value, count});
             }
         }
-        int[] res = new int[k];
+        int[] ans = new int[k];
         for (int i = 0; i < k; i++) {
-            res[i] = queue.poll()[0];
+            ans[i] = priorityQueue.poll()[0];
         }
-        return res;
+        return ans;
     }
 }
