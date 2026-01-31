@@ -3,32 +3,32 @@ package com.zxl.LeetCode.Solution;
 import java.util.PriorityQueue;
 
 public class MedianFinder {
-    PriorityQueue<Integer> queMin;// 大根堆存较小部分
-    PriorityQueue<Integer> queMax;// 小根堆存较大部分
-    // 保证大根堆最多只比小根堆多1，小根堆数量<=大根堆，并且最多比大根堆少1
+    PriorityQueue<Integer> queueMin = new PriorityQueue<>();
+    PriorityQueue<Integer> queueMax = new PriorityQueue<>();
     public MedianFinder() {
-        queMin = new PriorityQueue<>((a, b) -> b - a);
-        queMax = new PriorityQueue<>((a, b) -> a - b);
+        queueMin = new PriorityQueue<>((a, b) -> b - a);
+        queueMax = new PriorityQueue<>((a, b) -> a - b);
     }
 
     public void addNum(int num) {
-        if (queMin.isEmpty() || num < queMin.peek()) {
-            queMin.offer(num);
-            if (queMin.size() > queMax.size() + 1) {
-                queMax.offer(queMin.poll());
+        if (queueMin.isEmpty() || num < queueMin.peek()) {
+            queueMin.offer(num);
+            if (queueMin.size() > queueMax.size() + 1) {
+                queueMax.offer(queueMin.poll());
             }
         } else {
-            queMax.offer(num);
-            if (queMax.size() > queMin.size()) {
-                queMin.offer(queMax.poll());
+            queueMax.offer(num);
+            if (queueMin.size() < queueMax.size()) {
+                queueMin.offer(queueMax.poll());
             }
         }
     }
 
     public double findMedian() {
-        if (queMin.size() > queMax.size()) {
-            return queMin.peek();
+        if (queueMin.size() == queueMax.size()) {
+            return (queueMin.peek() + queueMax.peek()) / 2.0;
+        } else {
+            return queueMin.peek();
         }
-        return (queMin.peek() + queMax.peek()) / 2.0;
     }
 }
