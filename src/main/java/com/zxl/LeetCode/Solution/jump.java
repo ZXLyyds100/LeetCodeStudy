@@ -17,18 +17,21 @@ public class jump {
     }
 
     public int jump_2(int[] nums) {
-        int maxPosition = 0;
+        int maxPos = 0;
+        int n = nums.length;
+        int step = 0;
         int end = 0;
-        int length = nums.length;
-        int steps = 0;
-        for (int i = 0; i < length - 1; i++) {
-            // 遍历每个位置能到的最远的点
-            maxPosition = Math.max(maxPosition, i + nums[i]);
-            if (i == end) {// 如果到end了的花进行更新
-                end = maxPosition;
-                steps++;
+        for (int i = 0; i < n - 1; i++) {
+            maxPos = Math.max(maxPos, nums[i] + i);
+            if (i == end) {
+                end = maxPos;
+                step++;
+                if (end >= n - 1) {
+                    break;
+                }
             }
         }
-        return steps;
+        return step;
+
     }
 }
