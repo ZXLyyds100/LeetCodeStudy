@@ -2,14 +2,13 @@ package com.zxl.LeetCode.Solution;
 
 public class climbStairs {
     public int climbStairs(int n) {
-        int f1, f2, fn;
-        f1 = 0;
-        f2 = 0;
-        fn = 1;// 初始为n为1
-        for(int i = 0; i < n; i++){
-            f1 = f2;
-            f2 = fn;
-            fn = f1 + f2;
+        int f0 = 0;// f-1，第-1没有方案
+        int f1 = 0;// f0，有一种
+        int fn = 1;// f1，有一种
+        for (int i = 0; i < n; i++) {
+            f0 = f1;
+            f1 = fn;
+            fn = f1 + f0;
         }
         return fn;
     }
